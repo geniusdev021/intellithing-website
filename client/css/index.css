@@ -1,0 +1,8 @@
+@import url('./desktop/index.css');
+@import url('./settings/var.css');
+@import url('./settings/reset.css');
+
+@font-face {
+	font-family: 'acronymlight';
+	src: url('/assets/fonts/acronymlight.woff2') format('woff2');
+}
