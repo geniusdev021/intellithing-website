@@ -13,9 +13,9 @@ class GLTFLoader {
       this.#gltf.setDRACOLoader(draco_loader);
    }
 
-   load(path, _model, handler) {
-      this.#gltf.load(path, model => {
-         handler(_model, model);
+   load(path, dst_model, handler) {
+      this.#gltf.load(path, src_model => {
+         handler(dst_model, src_model);
          this.loadDone();
       });
    }

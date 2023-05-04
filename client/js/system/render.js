@@ -20,7 +20,6 @@ const render = {
 const _checkResize = () => { resize.check(); };
 
 function tick() {
-   example_controller.updateMixer(0.01);
    renderer.render(scene, camera.src);
    _rAF = requestAnimationFrame(tick, canvas);
 };

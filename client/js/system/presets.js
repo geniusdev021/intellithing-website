@@ -7,7 +7,7 @@ const CHARACTER_CAMERA_PRESETS = {
    aspect: 2,
    near: .25,
    far: 100,
-   pos: [0, 1.7, -2],
+   pos: [0, 1.7, -20],
    lookAt: [0, 1, 0],
 };
 
@@ -21,9 +21,16 @@ const ORBIT_CONTROL_PRESETS = {
 };
 
 const HEMISPHERE_LIGHT_PRESETS = {
-   skyColor: 0xB1E1FF,
-   groundColor: 0xB97A20,
-   intensity: 1.3,
+   skyColor: 0xdef1fc,
+   groundColor: 0xa39c91,
+   intensity: 1,
+};
+
+const SPOT_LIGHT_TOP_PRESETS = {
+   color: 0xffffff,
+   intensity: 2.8,
+   // position: [0, 20, 10],
+   position: [5, 20, 20],
 };
 
 const SYSTEM_PRESETS = {
@@ -31,6 +38,7 @@ const SYSTEM_PRESETS = {
    CHARACTER_CAMERA_PRESETS,
    ORBIT_CONTROL_PRESETS,
    HEMISPHERE_LIGHT_PRESETS,
+   SPOT_LIGHT_TOP_PRESETS,
 };
 
 export default SYSTEM_PRESETS;

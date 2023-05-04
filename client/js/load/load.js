@@ -1,32 +1,25 @@
-import models from '/js/storage/models.js'; 
-import Collection from '/js/lib/collection/collection.js';
-import CExample from '/js/abstractions/controllers/example.js';
-import Example from '/js/abstractions/creational/example.js';
+import models from '/js/storage/models.js';
 import GLTF from '/js/lib/loaders/gltf.js';
 import initModels from '/js/load/init/models.js';
+import Model from '/js/abstractions/model/model.js';
 
 let _interval;
 const INTERVAL_MS = 100;
-
-const
-   example_collection = new Collection();
-
-window.example_controller = new CExample(example_collection);
 
 const load = {
    start,
 };
 
-function loadCharacters() {
+function loadModels() {
+   const models_collection = INTELLITHING.collections.models;
    for (const key in models) {
-      const url = models[key].url;
-      const example = new Example(key, url);
-      example_collection.setObject(key, example);
+      const url = models[key].url, model = new Model(key, url);
+      models_collection.setObject(key, model);
    };
 };
 
 function loadResources() {
-   loadCharacters();
+   loadModels();
 };
 
 function start() {
@@ -35,8 +28,7 @@ function start() {
 };
 
 function checkLoadStatus() {
-   const models_count = 
-      example_collection.getObjectCount;
+   const models_count = INTELLITHING.collections.models.getObjectCount;
 
    _interval = setInterval(() => {
       if (models_count == GLTF.getLoadedCount) {

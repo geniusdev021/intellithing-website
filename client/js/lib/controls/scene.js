@@ -1,4 +1,4 @@
-class Controller {
+class CScene {
    src_target;
    dst_target;
    collection;
@@ -19,13 +19,13 @@ class Controller {
    addTarget(name) {
       this.setDstTarget(name);
       if (this.src_target == this.dst_target) return;
-      this.replaceModel();
+      this.replaceScene();
       if (this.src_target.extensions) this.src_target.extensions();
    }
 
    initFirstTarget(first_name = this.getCollectionKeys[0]) {
       this.setDstTarget(first_name);
-      this.addModel();
+      this.addScene();
       this.swapTarget();
       if (this.src_target.extensions) this.src_target.extensions();
    }
@@ -34,11 +34,21 @@ class Controller {
       this.dst_target = this.collection.getObject(name); 
    }
 
-   addModel(model = this.dst_target.model.scene) {
+   addScene(model = this.dst_target.model.scene) {
       this.scene.add(model);
    }
 
-   delModel(model = this.src_target.model.scene) {
+   delScene(model = this.src_target.model.scene) {
+      model.traverse(o => {
+         if (o.geometry) o.geometry.dispose();
+         if (o.material) {
+            if (o.material.length) {
+               for (let i = 0; i < o.material.length; ++i) o.material[i].dispose();
+               return;
+            };
+            o.material.dispose();
+         }
+      });
       this.scene.remove(model);
    }
 
@@ -46,9 +56,9 @@ class Controller {
       this.src_target = this.dst_target;
    }
 
-   replaceModel() {
-      this.delModel();
-      this.addModel();
+   replaceScene() {
+      this.delScene();
+      this.addScene();
       this.swapTarget();
    }
 
@@ -61,4 +71,4 @@ class Controller {
    }
 };
 
-export default Controller;
+export default CScene;

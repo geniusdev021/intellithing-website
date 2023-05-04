@@ -1,7 +1,7 @@
-const characters = {
-   xbot: {
-      url: '/assets/models/xbot.glb',
+const models = {
+   triangle: {
+      url: '/assets/models/triangle.glb',
    }
 };
 
-export default characters;
+export default models;
