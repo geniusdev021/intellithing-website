@@ -3,17 +3,17 @@ const CTX_PRESETS = {
 };
 
 const CHARACTER_CAMERA_PRESETS = {
-   fov: 100,
+   fov: 35,
    aspect: 2,
-   near: .25,
+   near: 1,
    far: 100,
-   pos: [0, 1.7, -20],
+   pos: [0, 1.7, -40],
    lookAt: [0, 1, 0],
 };
 
 const ORBIT_CONTROL_PRESETS = {
    minDistance: 4,
-   maxDistance: 10,
+   maxDistance: 100,
    rotateSpeed: 0.4,
    zoomSpeed: 0.4,
    maxPolarAngle: (Math.PI / 2) - 0.05,

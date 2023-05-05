@@ -24,7 +24,7 @@ const
    });
 
 configer.setRenderer(renderer);
-INTELLITHING.workspace.setScene(scene);
+INTELLITHING.workspace.setSrcScene(scene);
 
 const 
    camera = new Camera(CHARACTER_CAMERA_PRESETS),
