@@ -22,7 +22,8 @@ const _checkResize = () => { resize.check(); };
 function tick(time) {
    renderer.render(scene, camera.src);
    _rAF = requestAnimationFrame(tick, canvas);
-   INTELLITHING.workspace.morphTriangles(time);
+   // INTELLITHING.workspace.morphTriangles(time);
+   INTELLITHING.workspace.rotateTriangles(time);
 };
 
 function start() {
