@@ -8,7 +8,7 @@ class Workspace extends CScene {
    }
 
    rotateTriangles(_time) {
-      const time = ~~(_time) * 0.0001;
+      const time = ~~(_time) * 0.0002;
       instance.rotate(this.active_scene, time);
    }
 };

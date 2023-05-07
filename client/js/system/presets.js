@@ -7,7 +7,7 @@ const CHARACTER_CAMERA_PRESETS = {
    aspect: 2,
    near: 1,
    far: 100,
-   pos: [0, 1.7, -40],
+   pos: [0, 7, -60],
    lookAt: [0, 1, 0],
 };
 

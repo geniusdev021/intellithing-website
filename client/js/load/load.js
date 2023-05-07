@@ -1,5 +1,5 @@
 import models from '/js/storage/models.js';
-import GLTF from '/js/lib/loaders/gltf.js';
+import PLY from '/js/lib/loaders/ply.js';
 import initModels from '/js/load/init/models.js';
 import Model from '/js/abstractions/model/model.js';
 
@@ -31,7 +31,7 @@ function checkLoadStatus() {
    const models_count = INTELLITHING.collections.models.getObjectCount;
 
    _interval = setInterval(() => {
-      if (models_count == GLTF.getLoadedCount) {
+      if (models_count == PLY.getLoadedCount) {
          initModels();
          window.render.start();
          clearInterval(_interval);

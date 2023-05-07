@@ -1,4 +1,4 @@
-import GLTF from '/js/lib/loaders/gltf.js';
+import PLY from '/js/lib/loaders/ply.js';
 import loadModelHandler from '/js/load/handlers/models.js';
 
 class Model {
@@ -7,7 +7,7 @@ class Model {
    
    constructor(name, url) {
       this.#name = name;
-      GLTF.load(url, this.model, loadModelHandler);
+      PLY.load(url, this.model, loadModelHandler);
    }
 
    get scene() {

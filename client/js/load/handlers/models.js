@@ -1,10 +1,9 @@
-function loadModelHandler(dst_model, src_model) {
-   saveSceneLink(dst_model, src_model);
+function loadModelHandler(dst_model, src_geometry) {
+   saveSceneLink(dst_model, src_geometry);
 };
 
-function saveSceneLink(dst_model, src_model) {
-   // dst_model.scene = src_model.scene;
-   dst_model.scene = src_model;
+function saveSceneLink(dst_model, src_geometry) {
+   dst_model.geometry = src_geometry;
 };
 
 export default loadModelHandler;
