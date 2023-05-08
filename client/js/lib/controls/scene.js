@@ -6,9 +6,17 @@ class CScene {
       this.#src_scene = src_scene;
    }
 
+   setActiveScene(scene) {
+      this.#active_scene = scene;
+   }
+
+   addSceneAndSave(scene) {
+      this.addScene(scene);
+      this.setActiveScene(scene);
+   }
+
    addScene(scene) {
       this.#src_scene.add(scene);
-      this.#active_scene = scene;
    }
 
    delScene(scene) {

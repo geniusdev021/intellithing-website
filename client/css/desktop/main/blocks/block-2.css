@@ -1,0 +1,25 @@
+#main-panel .main-block-2 {
+   /* position: relative; */
+   margin-top: 14rem;
+   width: 100%;
+   height: 100%;
+   overflow-y: hidden;
+
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+}
+
+.main-block-2 .t-3 {
+   width: 30rem;
+   padding: 1rem 9rem 1rem 1rem;
+   font-size: 8rem;
+   color: white;
+}
+
+.main-block-2 .t-4 {
+   width: 30rem;
+   padding-right: 9rem;
+   font-size: 1.2rem;
+   color: rgb(221, 221, 221);
+}

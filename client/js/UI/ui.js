@@ -1,9 +1,7 @@
-const UI = {
-   register,
+import scroll_ui from '/js/UI/global/scroll.js';
+
+function initUI() {
+   scroll_ui.register();
 };
 
-function register() {
-   // *_ui.register();
-};
-
-export default UI;
+export default initUI;

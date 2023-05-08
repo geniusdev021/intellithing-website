@@ -1,7 +1,7 @@
 import models from '/js/storage/models.js';
 import PLY from '/js/lib/loaders/ply.js';
-import initModels from '/js/load/init/models.js';
 import Model from '/js/abstractions/model/model.js';
+import base_stage from '/js/stages/base-stage.js';
 
 let _interval;
 const INTERVAL_MS = 100;
@@ -32,7 +32,7 @@ function checkLoadStatus() {
 
    _interval = setInterval(() => {
       if (models_count == PLY.getLoadedCount) {
-         initModels();
+         base_stage.start();
          window.render.start();
          clearInterval(_interval);
       };

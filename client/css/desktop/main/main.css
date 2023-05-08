@@ -1,0 +1,11 @@
+@import url('./blocks/block-1.css');
+@import url('./blocks/block-2.css');
+
+#main-panel {
+   position: fixed;
+   width: 100vw;
+   height: 100vh;
+   bottom: 0;
+   overflow-y: auto;
+   /* pointer-events: none; */
+}

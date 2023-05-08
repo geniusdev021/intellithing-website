@@ -5,6 +5,9 @@ const models = {
    E: {
       url: '/assets/models/E.ply',
    },
+   random: {
+      url: '/assets/models/random.ply',
+   },
    E_after: {
       url: '/assets/models/E_after.ply',
    },

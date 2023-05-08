@@ -55,7 +55,7 @@ function setInstancesPosition(instanced_mesh, dst_model, dst_model_scales) {
 
 function rotate(instanced_mesh, time) {
    const { count } = instanced_mesh;
-   // const sin_time = Math.abs(Math.sin(time * 2));
+   // const sin_time = Math.abs(Math.sin(time));
    // const sin_time = Math.sin(time * 2);
    for (let i = 0, j = 0; i <= count; i++, j+=3) {
       instanced_mesh.getMatrixAt(i, matrix);
@@ -64,10 +64,6 @@ function rotate(instanced_mesh, time) {
       dummy.rotation.x = i + time;
       dummy.rotation.y = i + time;
       dummy.rotation.z = time;
-
-      // dummy.rotation.x = time * i / count;
-      // dummy.rotation.y = time * count / i;
-      // dummy.rotation.z = time;
 
       // const pos_1 = new THREE.Vector3(
       //    _e_model_arr[j],
@@ -90,12 +86,13 @@ function rotate(instanced_mesh, time) {
    instanced_mesh.instanceMatrix.needsUpdate = true;
 };
 
-function create(triangle_model, E_model, E_model_scales, e_after_model) {
+function create(triangle_model, E_model, E_model_scales, random_model) {
    const vertices_count = _get_vertices_count(E_model);
    const instanced_mesh = generateInstances(triangle_model, vertices_count);
+   instanced_mesh.position.set(10, -2, 0);
    const t = setInstancesPosition(instanced_mesh, E_model, E_model_scales);
    _e_model_arr = E_model.geometry.attributes.position.array;
-   _e_after_model_arr = e_after_model.geometry.attributes.position.array;
+   _e_after_model_arr = random_model.geometry.attributes.position.array;
    triangle_model.mesh = t;
 };
 

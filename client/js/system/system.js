@@ -28,11 +28,11 @@ INTELLITHING.workspace.setSrcScene(scene);
 
 const 
    camera = new Camera(CHARACTER_CAMERA_PRESETS),
-   orbit_control = new OrbitControl(camera.src, canvas, ORBIT_CONTROL_PRESETS),
+   // orbit_control = new OrbitControl(camera.src, canvas, ORBIT_CONTROL_PRESETS),
    hemisphere_light = new HemisphereLight(HEMISPHERE_LIGHT_PRESETS),
    spot_light_top = new SpotLight(SPOT_LIGHT_TOP_PRESETS);
 
-orbit_control.src.update();
+// orbit_control.src.update();
 
 scene.add(hemisphere_light).add(spot_light_top);
 
