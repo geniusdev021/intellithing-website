@@ -1,6 +1,7 @@
 const instance = {
    create,
    rotate,
+   assembling,
 };
 
 let _e_model_arr;
@@ -14,7 +15,6 @@ const _get_vertices_count = ({ geometry }) => geometry.attributes.position.array
 function generateInstances(src_model, instance_count) {
    const src_geometry = src_model.geometry.clone();
    const material = new THREE.MeshStandardMaterial({
-      // color: 0xc49f5f,
       roughness: 0.3,
       metalness: 0.5,
    });
@@ -53,10 +53,57 @@ function setInstancesPosition(instanced_mesh, dst_model, dst_model_scales) {
    return instanced_mesh;
 };
 
+let _instanced_mesh;
+let _raF;
+let _time = 0;
+let _x = 0;
+let _y = 0;
+
+function assembling() {
+   const { count } = _instanced_mesh;
+   _x += 0.005;
+   _y =  _x * Math.sin(_x);
+   _time = _y;
+   for (let i = 0, j = 0; i <= count; i++, j+=3) {
+      _instanced_mesh.getMatrixAt(i, matrix);
+      matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
+
+
+      const pos_1 = new THREE.Vector3(
+         _e_model_arr[j],
+         _e_model_arr[j + 1],
+         _e_model_arr[j + 2],
+      );
+
+      const pos_2 = new THREE.Vector3(
+         _e_after_model_arr[j],
+         _e_after_model_arr[j + 1],
+         _e_after_model_arr[j + 2],
+      );
+
+      dummy.position.copy(pos_2.lerp(pos_1, _time));
+
+      dummy.updateMatrix();
+      _instanced_mesh.setMatrixAt(i, dummy.matrix);
+   };
+
+   // _instanced_mesh.rotation.x = 1 - _time;
+   // _instanced_mesh.rotation.y = _time - 1;
+   // _instanced_mesh.rotation.z = _time - 1;
+
+
+   _instanced_mesh.instanceMatrix.needsUpdate = true;
+
+   if (_time >= 1) {
+      cancelAnimationFrame(_raF);
+      return;
+   };
+
+   _raF = requestAnimationFrame(assembling);
+};
+
 function rotate(instanced_mesh, time) {
    const { count } = instanced_mesh;
-   // const sin_time = Math.abs(Math.sin(time));
-   // const sin_time = Math.sin(time * 2);
    for (let i = 0, j = 0; i <= count; i++, j+=3) {
       instanced_mesh.getMatrixAt(i, matrix);
       matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
@@ -64,20 +111,6 @@ function rotate(instanced_mesh, time) {
       dummy.rotation.x = i + time;
       dummy.rotation.y = i + time;
       dummy.rotation.z = time;
-
-      // const pos_1 = new THREE.Vector3(
-      //    _e_model_arr[j],
-      //    _e_model_arr[j + 1],
-      //    _e_model_arr[j + 2],
-      // );
-
-      // const pos_2 = new THREE.Vector3(
-      //    _e_after_model_arr[j],
-      //    _e_after_model_arr[j + 1],
-      //    _e_after_model_arr[j + 2],
-      // );
-
-      // dummy.position.copy(pos_1.lerp(pos_2, sin_time));
 
       dummy.updateMatrix();
       instanced_mesh.setMatrixAt(i, dummy.matrix);
@@ -90,6 +123,7 @@ function create(triangle_model, E_model, E_model_scales, random_model) {
    const vertices_count = _get_vertices_count(E_model);
    const instanced_mesh = generateInstances(triangle_model, vertices_count);
    instanced_mesh.position.set(10, -2, 0);
+   _instanced_mesh = instanced_mesh;
    const t = setInstancesPosition(instanced_mesh, E_model, E_model_scales);
    _e_model_arr = E_model.geometry.attributes.position.array;
    _e_after_model_arr = random_model.geometry.attributes.position.array;

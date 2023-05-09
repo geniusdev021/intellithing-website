@@ -1,5 +1,6 @@
 import initModels from '/js/load/init/models.js';
 import initUI from '/js/UI/ui.js';
+import instance from '/js/lib/instancing/instance.js';
 
 const base_stage = {
    start,
@@ -8,6 +9,7 @@ const base_stage = {
 function start() {
    initModels();
    initUI();
+   instance.assembling();
 };
 
 export default base_stage;

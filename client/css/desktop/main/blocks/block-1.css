@@ -1,4 +1,4 @@
-#main-panel .main-block-1 {
+#main-block-1 {
    /* position: relative; */
    margin-top: 14rem;
    width: 100%;
@@ -9,14 +9,14 @@
    flex-direction: column;
 }
 
-.main-block-1 .t-1 {
+#main-block-1 .t-1 {
    width: 30rem;
    padding: 1rem 1rem 1rem 9rem;
    font-size: 8rem;
    color: white;
 }
 
-.main-block-1 .t-2 {
+#main-block-1 .t-2 {
    width: 30rem;
    padding-left: 9rem;
    font-size: 1.2rem;

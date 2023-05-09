@@ -11,6 +11,15 @@ class Workspace extends CScene {
       const time = ~~(_time) * 0.0002;
       instance.rotate(this.active_scene, time);
    }
+
+   rotateActiveScene(period) {
+      this.active_scene.rotation.y = period;
+   }
+
+   scaleActiveScene(period) {
+      const scale_rate = 1.0 + (period * 0.3);
+      this.active_scene.scale.set(scale_rate, scale_rate, scale_rate);
+   }
 };
 
 export default Workspace;

@@ -1,34 +1,57 @@
 import listener from '/js/lib/helpers/listener.js';
-import HTMLNode from '/js/lib/helpers/HTMLNode.js';
 import DOM from '/js/storage/dom.js';
+import math from '/js/lib/helpers/math.js';
 
 const {
    addEv,
 } = listener;
 
 const {
-   toggleClass,
-} = HTMLNode;
-
-const {
-   main_panel
+   main_panel,
+   main_block_1,
+   main_block_2,
 } = DOM;
 
 const scroll_ui = {
    register,
 };
 
-function _scrollHandler() {
-   const { scrollTop, scrollHeight, offsetHeight } = main_panel;
+const
+   model_continues_time = 0.04,
+   text_continues_time = 0.03;
+
+let _dst_offset = 0;
+let _src_offset = 0, _src_offset_1 = 0, _rAF;
+
+const { lerp } = math;
+const { round } = Math;
+
+function smoothScroll() {
+   _src_offset = lerp(_src_offset, _dst_offset, model_continues_time);
+   _src_offset_1 = round(lerp(_src_offset_1, _dst_offset, text_continues_time));
+   const scroll = "translateY(-" + ~~(_src_offset_1 * 0.3) + "px)";
+   main_block_1.style.transform = scroll;
+   main_block_2.style.transform = scroll;
+
+   if (round(_src_offset) == _dst_offset) {
+      cancelAnimationFrame(_rAF);
+      _rAF = null;
+      return;
+   };
+
+   const period = _src_offset / window.innerHeight;
    const { camera } = INTELLITHING.system;
    const { workspace } = INTELLITHING;
-   const period = scrollTop / window.innerHeight;
-   if (period >= 1) return;
    camera.rotateAround(period);
-   // workspace.active_scene.rotation.y = Math.sin(time);
-   workspace.active_scene.rotation.y = period;
-   const scale_rate = 1.0 + (period * 0.3);
-   workspace.active_scene.scale.set(scale_rate, scale_rate, scale_rate);
+   workspace.rotateActiveScene(period);
+   workspace.scaleActiveScene(period);
+   _rAF = requestAnimationFrame(smoothScroll);
+};
+
+function _scrollHandler() {
+   const { scrollTop, scrollHeight, offsetHeight } = main_panel;
+   _dst_offset = scrollTop;
+   if (!_rAF) smoothScroll();
 };
 
 function register() {
