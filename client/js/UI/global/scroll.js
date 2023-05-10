@@ -1,6 +1,7 @@
 import listener from '/js/lib/helpers/listener.js';
 import DOM from '/js/storage/dom.js';
 import math from '/js/lib/helpers/math.js';
+import instance from '/js/lib/instancing/instance.js';
 
 const {
    addEv,
@@ -40,6 +41,9 @@ function smoothScroll() {
    };
 
    const period = _src_offset / window.innerHeight;
+
+   if (period >= 0.5) instance.disassemble(period - 0.5);
+
    const { camera } = INTELLITHING.system;
    const { workspace } = INTELLITHING;
    camera.rotateAround(period);

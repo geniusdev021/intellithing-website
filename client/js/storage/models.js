@@ -3,7 +3,8 @@ const models = {
       url: '/assets/models/triangle.ply',
    },
    chart: {
-      url: '/assets/models/E.ply',
+      // url: '/assets/models/E.ply',
+      url: '/assets/models/chart.ply',
    },
    random: {
       url: '/assets/models/random.ply',
