@@ -2,16 +2,16 @@ const models = {
    triangle: {
       url: '/assets/models/triangle.ply',
    },
-   E: {
+   chart: {
       url: '/assets/models/E.ply',
    },
    random: {
       url: '/assets/models/random.ply',
    },
-   E_after: {
-      url: '/assets/models/E_after.ply',
-   },
-   E_scales: {
+   // chart_after: {
+   //    url: '/assets/models/E_after.ply',
+   // },
+   chart_scales: {
       url: '/assets/models/E_scales.ply',
    },
    // star: {

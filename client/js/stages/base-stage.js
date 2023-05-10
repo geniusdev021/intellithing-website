@@ -9,7 +9,7 @@ const base_stage = {
 function start() {
    initModels();
    initUI();
-   instance.assembling();
+   instance.assemble();
 };
 
 export default base_stage;

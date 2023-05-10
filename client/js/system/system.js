@@ -2,7 +2,7 @@ import DOM from '/js/storage/dom.js';
 import SYSTEM_PRESETS from '/js/system/presets.js';
 import Configer from '/js/lib/configer/configer.js';
 import Camera from '/js/lib/camera/camera.js';
-import OrbitControl from '/js/lib/camera/controls/orbit.js';
+// import OrbitControl from '/js/lib/camera/controls/orbit.js';
 import HemisphereLight from '/js/lib/light/hemisphere.js';
 import SpotLight from '/js/lib/light/spot.js';
 
@@ -10,7 +10,7 @@ const
    { canvas } = DOM,
    { CTX_PRESETS,
      CHARACTER_CAMERA_PRESETS,
-     ORBIT_CONTROL_PRESETS,
+   //   ORBIT_CONTROL_PRESETS,
      HEMISPHERE_LIGHT_PRESETS,
      SPOT_LIGHT_TOP_PRESETS,
    } = SYSTEM_PRESETS;
