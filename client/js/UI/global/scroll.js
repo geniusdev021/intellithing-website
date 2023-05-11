@@ -46,13 +46,15 @@ function smoothScroll() {
    const period = _src_offset / window.innerHeight;
 
    if (period >= 0.5 && period <= 0.9) {
-      const dp = Math.abs(period - _last_period);
-      if (period - dp <= 0.5) {
-         instance.disassemble_test(period - 0.5);
-      } else {
-         instance.disassemble(period - 0.5);
-      };
-      // instance.disassemble(period - 0.5);
+      const dir = period - _last_period;
+      // const dp = Math.abs(period - _last_period);
+      // if (period - dp <= 0.5) {
+      //    instance.disassemble_test(period - 0.5);
+      // } else {
+      //    instance.disassemble(period - 0.5);
+      // };
+      if (dir < 0) instance.disassemble_test(period - 0.5);
+      else instance.disassemble(period - 0.5, dir);
    };
 
 

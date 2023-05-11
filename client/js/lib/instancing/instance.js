@@ -38,44 +38,64 @@ function setDisassembleDstArr(model) {
 };
 
 let count;
+let _arr;
 
-function disassemble_step(period) {
+function disassemble_step(period, dir) {
    const instanced_mesh = getInstancedMesh();
-   count = ~~(period * 1000);
-   // const tt = period * 2.5; // 0 - 1
+   const t = period * 2.5; // 0 - 1
+   count = ~~(t * 400);
+   // count = ~~(period * 1000);
    const tt = 0.2;
+   const _t = dir * 100;
+   const arr = [];
 
    for (let i = 0, j = 0; i <= count; i++, j += 3) {
       instanced_mesh.getMatrixAt(i, matrix);
       matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
 
-      // dummy.position.y += 0.03;
-      // dummy.position.x += Math.sin(i) * 0.1;
-      // dummy.position.z += Math.cos(i) * 0.1;
+      dummy.position.y += _t * 0.1;
+      dummy.position.x += Math.sin(i) * _t * 2;
+      dummy.position.z += Math.cos(i) * _t * 2;
 
-      dummy.position.x = _src_model_arr[j] + (Math.sin(i * 1) * (count - i) * tt);
-      dummy.position.y = _src_model_arr[j + 1] + (count - i) * 0.01;
-      dummy.position.z = _src_model_arr[j + 2] + (Math.cos(i * 1) * (count - i) * tt);
-
+      // dummy.position.x = _src_model_arr[j] + (Math.sin(i * 1) * (count - i) * tt);
+      // dummy.position.y = _src_model_arr[j + 1] + (count - i) * 0.01;
+      // dummy.position.z = _src_model_arr[j + 2] + (Math.cos(i * 1) * (count - i) * tt);
 
       dummy.updateMatrix();
+      arr.push(
+         dummy.position.x,
+         dummy.position.y,
+         dummy.position.z,
+      );
+
       instanced_mesh.setMatrixAt(i, dummy.matrix);
    };
 
+   _arr = arr;
    instanced_mesh.instanceMatrix.needsUpdate = true;
 };
 
-function disassemble_test() {
+function disassemble_test(period) {
    const instanced_mesh = getInstancedMesh();
+   const t = period * 2.5; // 0 - 1
 
-   for (let i = 0, j = 0; i <= _src_model_arr.length; i++, j += 3) {
+   for (let i = 0, j = 0; i <= _arr.length / 3; i++, j += 3) {
       instanced_mesh.getMatrixAt(i, matrix);
       matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
 
-      dummy.position.x = _src_model_arr[j];
-      dummy.position.y = _src_model_arr[j + 1];
-      dummy.position.z = _src_model_arr[j + 2];
+      const pos_1 = new THREE.Vector3(
+         _src_model_arr[j],
+         _src_model_arr[j + 1],
+         _src_model_arr[j + 2],
+      );
 
+      const pos_2 = new THREE.Vector3(
+         _arr[j],
+         _arr[j + 1],
+         _arr[j + 2],
+      );
+
+      dummy.position.copy(pos_1.lerp(pos_2, t));
 
       dummy.updateMatrix();
       instanced_mesh.setMatrixAt(i, dummy.matrix);
@@ -84,24 +104,9 @@ function disassemble_test() {
    instanced_mesh.instanceMatrix.needsUpdate = true;
 };
 
-function disassemble(period) {
-   disassemble_step(period);
+function disassemble(period, dir) {
+   disassemble_step(period, dir);
 };
-
-// window.addEventListener('click', () => {
-// const instanced_mesh = getInstancedMesh();
-// for (let i = 0, j = 0; i <= 63 +28; i++, j+=3) {
-//    instanced_mesh.getMatrixAt(i, matrix);
-//    matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
-
-//    dummy.position.x -= 5;
-
-//    dummy.updateMatrix();
-//    instanced_mesh.setMatrixAt(i, dummy.matrix);
-// };
-
-// instanced_mesh.instanceMatrix.needsUpdate = true;
-// });
 
 function create(triangle_model, E_model, E_model_scales) {
    const vertices_count = _get_vertices_count(E_model);
