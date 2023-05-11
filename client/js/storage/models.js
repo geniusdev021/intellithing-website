@@ -13,7 +13,7 @@ const models = {
    //    url: '/assets/models/E_after.ply',
    // },
    chart_scales: {
-      url: '/assets/models/E_scales.ply',
+      url: '/assets/models/chart_scales.ply',
    },
    // star: {
    //    url: '/assets/models/star.obj',

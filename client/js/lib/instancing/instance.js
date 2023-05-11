@@ -4,8 +4,11 @@ import assemble from "./assemble.js";
 import rotate from "./rotate.js";
 import target from "./target.js";
 import { setAssembleSrcArr, setAssembleDstArr } from "./assemble.js";
+import math from '/js/lib/helpers/math.js';
 
 import { dummy, matrix } from "./dummy.js";
+
+const { lerp } = math;
 
 const { getInstancedMesh } = target;
 
@@ -16,6 +19,7 @@ const instance = {
    setAssembleSrcArr,
    setAssembleDstArr,
    disassemble,
+   disassemble_test,
    setDisassembleSrcArr,
    setDisassembleDstArr,
 };
@@ -26,39 +30,33 @@ let _src_model_arr;
 let _dst_model_arr;
 
 function setDisassembleSrcArr(model) {
-   _src_model_arr = model.geometry.attributes.position.array; 
+   _src_model_arr = model.geometry.attributes.position.array;
 };
 
 function setDisassembleDstArr(model) {
-   _dst_model_arr = model.geometry.attributes.position.array; 
+   _dst_model_arr = model.geometry.attributes.position.array;
 };
 
-function disassemble(period) {
-   console.log(period);
+let count;
+
+function disassemble_step(period) {
    const instanced_mesh = getInstancedMesh();
-   const count = ~~(period * 1000);
-   // const count = 100;
-   for (let i = 0, j = 0; i <= count; i++, j+=3) {
+   count = ~~(period * 1000);
+   // const tt = period * 2.5; // 0 - 1
+   const tt = 0.2;
+
+   for (let i = 0, j = 0; i <= count; i++, j += 3) {
       instanced_mesh.getMatrixAt(i, matrix);
       matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
 
-      dummy.position.y += 0.1;
-      dummy.position.x += Math.sin(i) * 0.1;
-      dummy.position.z += Math.cos(i) * 0.1;
+      // dummy.position.y += 0.03;
+      // dummy.position.x += Math.sin(i) * 0.1;
+      // dummy.position.z += Math.cos(i) * 0.1;
 
-      // const pos_1 = new THREE.Vector3(
-      //    _src_model_arr[j],
-      //    _src_model_arr[j + 1],
-      //    _src_model_arr[j + 2],
-      // );
+      dummy.position.x = _src_model_arr[j] + (Math.sin(i * 1) * (count - i) * tt);
+      dummy.position.y = _src_model_arr[j + 1] + (count - i) * 0.01;
+      dummy.position.z = _src_model_arr[j + 2] + (Math.cos(i * 1) * (count - i) * tt);
 
-      // const pos_2 = new THREE.Vector3(
-      //    _dst_model_arr[j],
-      //    _dst_model_arr[j + 1],
-      //    _dst_model_arr[j + 2],
-      // );
-
-      // dummy.position.copy(pos_2.lerp(pos_1, period));
 
       dummy.updateMatrix();
       instanced_mesh.setMatrixAt(i, dummy.matrix);
@@ -67,20 +65,42 @@ function disassemble(period) {
    instanced_mesh.instanceMatrix.needsUpdate = true;
 };
 
+function disassemble_test() {
+   const instanced_mesh = getInstancedMesh();
+
+   for (let i = 0, j = 0; i <= _src_model_arr.length; i++, j += 3) {
+      instanced_mesh.getMatrixAt(i, matrix);
+      matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
+
+      dummy.position.x = _src_model_arr[j];
+      dummy.position.y = _src_model_arr[j + 1];
+      dummy.position.z = _src_model_arr[j + 2];
+
+
+      dummy.updateMatrix();
+      instanced_mesh.setMatrixAt(i, dummy.matrix);
+   };
+
+   instanced_mesh.instanceMatrix.needsUpdate = true;
+};
+
+function disassemble(period) {
+   disassemble_step(period);
+};
 
 // window.addEventListener('click', () => {
-   // const instanced_mesh = getInstancedMesh();
-   // for (let i = 0, j = 0; i <= 63 +28; i++, j+=3) {
-   //    instanced_mesh.getMatrixAt(i, matrix);
-   //    matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
+// const instanced_mesh = getInstancedMesh();
+// for (let i = 0, j = 0; i <= 63 +28; i++, j+=3) {
+//    instanced_mesh.getMatrixAt(i, matrix);
+//    matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
 
-   //    dummy.position.x -= 5;
+//    dummy.position.x -= 5;
 
-   //    dummy.updateMatrix();
-   //    instanced_mesh.setMatrixAt(i, dummy.matrix);
-   // };
+//    dummy.updateMatrix();
+//    instanced_mesh.setMatrixAt(i, dummy.matrix);
+// };
 
-   // instanced_mesh.instanceMatrix.needsUpdate = true;
+// instanced_mesh.instanceMatrix.needsUpdate = true;
 // });
 
 function create(triangle_model, E_model, E_model_scales) {

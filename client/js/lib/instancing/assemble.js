@@ -50,12 +50,16 @@ function assembling_step(time) {
 };
 
 function assemble() {
-   _x += 0.01;
-   _time = sin(_x) * _x * _x / 3.9;
+   _x += 0.007;
+   _time = _x * sin(_x);
+   // _x += 0.01;
+   // _time = sin(_x) * _x * _x / 3.9;
 
    assembling_step(_time);
 
-   if (_x >= 2.38) {
+   // if (_x >= 2.38) {
+   if (_x >= 1.11) {
+      assembling_step(1);
       cancelAnimationFrame(_raF);
       return;
    };
