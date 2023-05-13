@@ -2,7 +2,7 @@ let _instanced_mesh;
 
 const target = {
    setInstancedMesh,
-   getInstancedMesh
+   getInstancedMesh,
 };
 
 function setInstancedMesh(mesh) {

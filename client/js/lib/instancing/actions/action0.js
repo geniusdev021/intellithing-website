@@ -1,5 +1,5 @@
-import { dummy, matrix } from "./dummy.js";
-import target from "./target.js";
+import { dummy, matrix } from "../dummy.js";
+import target from "../target.js";
 
 const { getInstancedMesh } = target;
 
@@ -10,14 +10,6 @@ let _x = 0;
 let _time = 0;
 let _src_model_arr;
 let _dst_model_arr;
-
-function setAssembleSrcArr(model) {
-   _src_model_arr = model.geometry.attributes.position.array; 
-};
-
-function setAssembleDstArr(model) {
-   _dst_model_arr = model.geometry.attributes.position.array; 
-};
 
 function assembling_step(time) {
    const 
@@ -49,7 +41,7 @@ function assembling_step(time) {
    instanced_mesh.instanceMatrix.needsUpdate = true;
 };
 
-function assemble() {
+function assemble_action_0() {
    _x += 0.007;
    _time = _x * sin(_x);
    // _x += 0.01;
@@ -64,8 +56,21 @@ function assemble() {
       return;
    };
 
-   _raF = requestAnimationFrame(assemble);
+   _raF = requestAnimationFrame(assemble_action_0);
 };
 
-export default assemble;
-export { setAssembleSrcArr, setAssembleDstArr };
+function setPositionSrcArr(model) {
+   _src_model_arr = model.geometry.attributes.position.array; 
+};
+
+function setPositionDstArr(model) {
+   _dst_model_arr = model.geometry.attributes.position.array; 
+};
+
+const action_0 = {
+   setPositionSrcArr,
+   setPositionDstArr,
+};
+
+export default action_0;
+export { assemble_action_0 };

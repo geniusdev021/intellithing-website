@@ -1,0 +1,24 @@
+#main-block-3 {
+   /* position: relative; */
+   margin-top: 14rem;
+   width: 100%;
+   height: 100%;
+   overflow-y: hidden;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+#main-block-3 .t-4 {
+   width: max-content;
+   padding: 1rem 1rem 1rem 1rem;
+   font-size: 8rem;
+   color: white;
+}
+
+#main-block-3 .t-5 {
+   /* width: 90vw; */
+   font-size: 1.2rem;
+   color: rgb(221, 221, 221);
+}

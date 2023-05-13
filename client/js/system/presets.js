@@ -6,7 +6,7 @@ const CHARACTER_CAMERA_PRESETS = {
    fov: 35,
    aspect: 2,
    near: 1,
-   far: 100,
+   far: 300,
    // pos: [0, 7, 45],
    pos: [0, 0, 45],
    lookAt: [0, 0, 0],

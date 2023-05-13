@@ -1,4 +1,7 @@
 import instance from "/js/lib/instancing/instance.js";
+import action_0 from "/js/lib/instancing/actions/action0.js";
+import action_1 from "/js/lib/instancing/actions/action1.js";
+import action_2 from "/js/lib/instancing/actions/action2.js";
 
 function initModels() {
    const {
@@ -13,10 +16,10 @@ function initModels() {
       chart_model_scales = collections.models.getObject('chart_scales').model;
 
    instance.create(triangle_model, chart_model, chart_model_scales, random_model);
-   instance.setAssembleSrcArr(chart_model);
-   instance.setAssembleDstArr(random_model);
-   instance.setDisassembleSrcArr(chart_model);
-   instance.setDisassembleDstArr(random_model);
+   action_0.setPositionSrcArr(chart_model);
+   action_0.setPositionDstArr(random_model);
+   action_1.setPositionSrcArr(chart_model);
+   action_2.setPositionSrcArr(chart_model);
 
    workspace.addSceneAndSave(triangle_model.mesh);
 };

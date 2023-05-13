@@ -11,6 +11,7 @@ const {
    main_panel,
    main_block_1,
    main_block_2,
+   main_block_3,
 } = DOM;
 
 const scroll_ui = {
@@ -21,6 +22,10 @@ const
    model_continues_time = 0.04,
    text_continues_time = 0.03;
 
+const
+   P_OFFSET_ACTION_1 = 0.5,
+   P_OFFSET_ACTION_2 = 1;
+
 let _dst_offset = 0;
 let _src_offset = 0, _src_offset_1 = 0, _rAF;
 
@@ -30,12 +35,37 @@ const
 
 let _last_period = 0;
 
+function action_1(period) {
+   const dir = period - _last_period;
+   if (dir < 0) {
+      instance.assemble_action_1(period - P_OFFSET_ACTION_1);
+      const dp = Math.abs(period - _last_period);
+      if (period - dp <= P_OFFSET_ACTION_1) instance.assemble_action_1(0);
+      return;
+   };
+   instance.disassemble_action_1(period - P_OFFSET_ACTION_1, dir);
+};
+
+function action_2(period) {
+   const dir = period - _last_period;
+   if (dir < 0) {
+      instance.assemble_action_2(period - P_OFFSET_ACTION_2);
+      const dp = Math.abs(period - _last_period);
+      if (period - dp <= P_OFFSET_ACTION_2) instance.assemble_action_2(0);
+      return;
+   };
+   instance.disassemble_action_2(period - P_OFFSET_ACTION_2, dir);
+};
+
 function smoothScroll() {
    _src_offset = lerp(_src_offset, _dst_offset, model_continues_time);
    _src_offset_1 = round(lerp(_src_offset_1, _dst_offset, text_continues_time));
-   const scroll = "translateY(-" + ~~(_src_offset_1 * 0.3) + "px)";
-   main_block_1.style.transform = scroll;
-   main_block_2.style.transform = scroll;
+
+   const translte_style = "translateY(-" + ~~(_src_offset_1 * 0.3) + "px)";
+
+   main_block_1.style.transform = translte_style;
+   main_block_2.style.transform = translte_style;
+   main_block_3.style.transform = translte_style;
 
    if (round(_src_offset) == _dst_offset) {
       cancelAnimationFrame(_rAF);
@@ -43,25 +73,27 @@ function smoothScroll() {
       return;
    };
 
-   const period = _src_offset / window.innerHeight;
+   const
+      period = _src_offset / window.innerHeight,
+      { camera } = INTELLITHING.system,
+      { workspace } = INTELLITHING;
 
-   if (period >= 0.5 && period <= 0.9) {
-      const dir = period - _last_period;
-      if (dir < 0) {
-         instance.disassemble_test(period - 0.5);
-         const dp = Math.abs(period - _last_period);
-         if (period - dp <= 0.5) instance.disassemble_test(0);
-      } else instance.disassemble(period - 0.5, dir);
+   if (period > 0.5 && period < 0.9) action_1(period);
+
+   if (period < 0.9) {
+      camera.rotateAround(period);
+      workspace.rotateActiveScene(period);
+      workspace.scaleActiveScene(period);
    };
 
+   if (period >= 0.9 && period < 1.2) {
+      camera.moveAround(period);
+      workspace.moveActiveScene(period);
+   };
+
+   if (period >= 1 && period < 1.8) action_2(period); 
 
    _last_period = period;
-
-   const { camera } = INTELLITHING.system;
-   const { workspace } = INTELLITHING;
-   camera.rotateAround(period);
-   workspace.rotateActiveScene(period);
-   workspace.scaleActiveScene(period);
    _rAF = requestAnimationFrame(smoothScroll);
 };
 
