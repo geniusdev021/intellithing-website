@@ -22,11 +22,11 @@ class Workspace extends CScene {
    }
 
    moveActiveScene(period) {
-      const t = (period - 0.9) * 3.33; // 0 - 1 
+      const t = (period - 1.2) * 3.33; // 0 - 1 
       this.active_scene.position.x = 10 - (t * 10);
       this.active_scene.position.y = -2 + t;
       this.active_scene.updateMatrix();
-      const scale_rate = 1.0 + period * 0.3;
+      const scale_rate = 1.0 + (period - 0.3) * 0.3;
       this.active_scene.scale.set(scale_rate, scale_rate, scale_rate);
    }
 };

@@ -1,0 +1,136 @@
+#main-block-4 {
+   position: relative;
+   margin-top: 14rem;
+   width: 100%;
+   height: 100%;
+   overflow: hidden;
+
+   display: flex;
+   flex-direction: column;
+   z-index: 10;
+}
+
+#main-block-4 .t-6 {
+   width: 40rem;
+   padding: 1rem 1rem 1rem 9rem;
+   font-size: 7rem;
+   color: white;
+}
+
+#main-block-4 .t-7 {
+   width: 30rem;
+   padding: 1rem 1rem 1rem 9rem;
+   font-size: 2rem;
+   font-weight: 700;
+   color: rgb(221, 221, 221);
+}
+
+#main-block-4 .t-8 {
+   width: 30rem;
+   padding: 1rem 1rem 0.2rem 9rem;
+   font-size: 1.2rem;
+   font-weight: 700;
+   color: rgb(250, 250, 250);
+}
+
+#slider-container {
+   position: absolute;
+   top: 10%;
+   left: -28%;
+   height: max-content;
+   display: flex;
+   transition: all .4s; 
+}
+
+#slider-container.active-0 { left: 39%; }
+#slider-container.active-1 { left: 16%; }
+#slider-container.active-2 { left: -6%; }
+#slider-container.active-3 { left: -28%; }
+#slider-container.active-4 { left: -50%; }
+#slider-container.active-5 { left: -73%; }
+#slider-container.active-6 { left: -95%; }
+#slider-container.active-7 { left: -117%; }
+
+#slider-container img {
+   width: 300px;
+   margin: 0 4rem;
+   opacity: 0.5;
+   border-radius: 2rem;
+   transition: .28s opacity ease, transform .4s;
+   filter: saturate(20%) blur(1px);
+}
+
+#slider-container img.active {
+   opacity: 1;
+   transform: scale(1.2, 1.2);
+   filter: none;
+}
+
+.slider-btns-wrapper {
+   position: relative;
+   display: flex;
+   justify-content: center;
+   top: 23%; 
+}
+
+.slider-btn {
+   position: relative;
+   width: 54px;
+   height: 54px;
+   border-radius: 50%;
+   background-color: var(--main-color-1);
+}
+
+.slider-btn::after {
+   position: absolute;
+   display: block;
+   content: ' ';
+   top: 50%;
+   left: 50%;
+   width: 0px;
+   height: 0px;
+   border-radius: 50%;
+   background-color: var(--main-color-2);
+   transition: .4s all;
+}
+
+.slider-btn:hover::after {
+   width: 54px;
+   height: 54px;
+   top: 0;
+   left: 0;
+}
+
+.slider-btn:active {
+   opacity: .7;
+}
+
+.slider-btn:active:hover::after {
+   opacity: .7;
+}
+
+#slider-btn-left {
+   margin-right: 1.4rem;
+   cursor: pointer;
+   position: relative;
+}
+
+#slider-btn-right {
+   cursor: pointer;
+}
+
+#slider-btn-left .sib-symbol {
+   left: 35%;
+}
+
+#slider-btn-right .sib-symbol {
+   right: 35%;
+}
+
+.sib-symbol {
+   position: absolute;
+   color: rgb(221, 221, 221);
+   font-size: 2.2rem;
+   top: 4%;
+   z-index: 20;
+}

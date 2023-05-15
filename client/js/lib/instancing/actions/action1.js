@@ -10,17 +10,19 @@ let _tr;
 
 function disassemble_action_1(period, dir) {
    const instanced_mesh = getInstancedMesh();
-   const t = period * 2.5; // 0 - 1
+   const pt = period * 1.8;
+   const t = (pt > 1) ? 1 : pt;
+   const _t = period * 1.25; // 0 - 1
    count = ~~(t * MESHES_COUNT);
-   const _t = dir * 100;
+   const spread = dir * 40;
 
    for (let i = 0; i <= count; i++) {
       instanced_mesh.getMatrixAt(i, matrix);
       matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
 
-      dummy.position.y += _t * 0.1;
-      dummy.position.x += Math.sin(i) * _t * 2;
-      dummy.position.z += Math.cos(i) * _t * 2;
+      dummy.position.y += spread * 0.1;
+      dummy.position.x += Math.sin(i) * spread * 2;
+      dummy.position.z += Math.cos(i) * spread * 2;
 
       dummy.updateMatrix();
 
@@ -29,13 +31,14 @@ function disassemble_action_1(period, dir) {
       instanced_mesh.setMatrixAt(i, dummy.matrix);
    };
 
-   _tr = 1 / t;
+   _tr = 1 / _t;
    instanced_mesh.instanceMatrix.needsUpdate = true;
 };
 
 function assemble_action_1(period) {
    const instanced_mesh = getInstancedMesh();
-   const t = period * 2.5; // 1 - 0 
+   // const t = period * 2; // 1 - 0 
+   const t = period * 1.25; // 1 - 0 
 
    for (const i in obj) {
       instanced_mesh.getMatrixAt(i, matrix);

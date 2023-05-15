@@ -12,6 +12,7 @@ const {
    main_block_1,
    main_block_2,
    main_block_3,
+   main_block_4,
 } = DOM;
 
 const scroll_ui = {
@@ -24,12 +25,12 @@ const
 
 const
    P_OFFSET_ACTION_1 = 0.5,
-   P_OFFSET_ACTION_2 = 1;
+   P_OFFSET_ACTION_2 = 1.2;
 
 let _dst_offset = 0;
 let _src_offset = 0, _src_offset_1 = 0, _rAF;
 
-const 
+const
    { lerp } = math,
    { round } = Math;
 
@@ -37,24 +38,27 @@ let _last_period = 0;
 
 function action_1(period) {
    const dir = period - _last_period;
+   const _period = Math.sin((period - P_OFFSET_ACTION_1) * 2);
    if (dir < 0) {
-      instance.assemble_action_1(period - P_OFFSET_ACTION_1);
+      instance.assemble_action_1(_period);
       const dp = Math.abs(period - _last_period);
       if (period - dp <= P_OFFSET_ACTION_1) instance.assemble_action_1(0);
       return;
    };
-   instance.disassemble_action_1(period - P_OFFSET_ACTION_1, dir);
+   instance.disassemble_action_1(_period, dir);
 };
 
 function action_2(period) {
    const dir = period - _last_period;
+   // const _period = Math.sin((period - P_OFFSET_ACTION_2) * 2);
+   const _period = (period - P_OFFSET_ACTION_2) * 1.25;
    if (dir < 0) {
-      instance.assemble_action_2(period - P_OFFSET_ACTION_2);
+      instance.assemble_action_2(_period);
       const dp = Math.abs(period - _last_period);
       if (period - dp <= P_OFFSET_ACTION_2) instance.assemble_action_2(0);
       return;
    };
-   instance.disassemble_action_2(period - P_OFFSET_ACTION_2, dir);
+   instance.disassemble_action_2(_period, dir);
 };
 
 function smoothScroll() {
@@ -66,6 +70,7 @@ function smoothScroll() {
    main_block_1.style.transform = translte_style;
    main_block_2.style.transform = translte_style;
    main_block_3.style.transform = translte_style;
+   main_block_4.style.transform = translte_style;
 
    if (round(_src_offset) == _dst_offset) {
       cancelAnimationFrame(_rAF);
@@ -78,7 +83,7 @@ function smoothScroll() {
       { camera } = INTELLITHING.system,
       { workspace } = INTELLITHING;
 
-   if (period > 0.5 && period < 0.9) action_1(period);
+   if (period > 0.5 && period < 1.3) action_1(period);
 
    if (period < 0.9) {
       camera.rotateAround(period);
@@ -86,12 +91,12 @@ function smoothScroll() {
       workspace.scaleActiveScene(period);
    };
 
-   if (period >= 0.9 && period < 1.2) {
+   if (period >= 1.2 && period < 1.5) {
       camera.moveAround(period);
       workspace.moveActiveScene(period);
    };
 
-   if (period >= 1 && period < 1.8) action_2(period); 
+   if (period >= 1.2 && period < 2.1) action_2(period);
 
    _last_period = period;
    _rAF = requestAnimationFrame(smoothScroll);

@@ -35,7 +35,7 @@ class Camera {
    }
 
    moveAround(period) {
-      const t = (period - 0.9) * 3.33; // 0 - 1 
+      const t = (period - 1.2) * 3.33; // 0 - 1 
       this.#camera.position.lerpVectors(this.#last_pos, this.#action_2_pos, t);
       this.#camera.lookAt(this.#origin_pos);
    }

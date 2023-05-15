@@ -9,11 +9,11 @@ let _tr;
 
 function disassemble_action_2(period, dir) {
    const instanced_mesh = getInstancedMesh();
-   const t = period * 1.25; // 0 - 1
+   const t = period; // 0 - 1
    count_1 = ~~(t * 232);
    count_2 = ~~(t * 408);
    count_3 = ~~(t * 632);
-   const _t = dir * 100;
+   const spread = dir * 80;
    
    if (count_1 > 232) count_1 = 232;
    if (count_2 > 408) count_2 = 408;
@@ -24,9 +24,9 @@ function disassemble_action_2(period, dir) {
       instanced_mesh.getMatrixAt(ir, matrix);
       matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
 
-      dummy.position.y += _t * 0.1;
-      dummy.position.x += Math.sin(ir) * _t;
-      dummy.position.z += Math.cos(ir) * _t;
+      dummy.position.y += spread * 0.1;
+      dummy.position.x += Math.sin(ir) * spread;
+      dummy.position.z += Math.cos(ir) * spread;
 
       dummy.updateMatrix();
 
@@ -40,9 +40,9 @@ function disassemble_action_2(period, dir) {
       instanced_mesh.getMatrixAt(ir, matrix);
       matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
 
-      dummy.position.y += _t * 0.2;
-      dummy.position.x += Math.sin(ir) * _t;
-      dummy.position.z += Math.cos(ir) * _t;
+      dummy.position.y += spread * 0.2;
+      dummy.position.x += Math.sin(ir) * spread;
+      dummy.position.z += Math.cos(ir) * spread;
 
       dummy.updateMatrix();
 
@@ -56,9 +56,9 @@ function disassemble_action_2(period, dir) {
       instanced_mesh.getMatrixAt(ir, matrix);
       matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
 
-      dummy.position.y += -_t * 0.1;
-      dummy.position.x += Math.sin(ir) * _t;
-      dummy.position.z += Math.cos(ir) * _t;
+      dummy.position.y += -spread * 0.1;
+      dummy.position.x += Math.sin(ir) * spread;
+      dummy.position.z += Math.cos(ir) * spread;
 
       dummy.updateMatrix();
 
@@ -73,7 +73,7 @@ function disassemble_action_2(period, dir) {
 
 function assemble_action_2(period) {
    const instanced_mesh = getInstancedMesh();
-   let t = period * 1.25; // 0 - 1
+   let t = period; // 0 - 1
 
    for (const i in obj) {
       instanced_mesh.getMatrixAt(i, matrix);
