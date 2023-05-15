@@ -5,15 +5,15 @@ const { getInstancedMesh } = target;
 
 let count_1, count_2, count_3, _src_model_arr;
 let obj = {};
+let _tr;
 
 function disassemble_action_2(period, dir) {
    const instanced_mesh = getInstancedMesh();
-   const t = period * 1.7; // 0 - 1
+   const t = period * 1.25; // 0 - 1
    count_1 = ~~(t * 232);
    count_2 = ~~(t * 408);
    count_3 = ~~(t * 632);
    const _t = dir * 100;
-   obj = {};
    
    if (count_1 > 232) count_1 = 232;
    if (count_2 > 408) count_2 = 408;
@@ -67,6 +67,7 @@ function disassemble_action_2(period, dir) {
       instanced_mesh.setMatrixAt(ir, dummy.matrix);
    };
 
+   _tr = 1 / t; 
    instanced_mesh.instanceMatrix.needsUpdate = true;
 };
 
@@ -75,7 +76,6 @@ function assemble_action_2(period) {
    let t = period * 1.25; // 0 - 1
 
    for (const i in obj) {
-      const pos = obj[i];
       instanced_mesh.getMatrixAt(i, matrix);
       matrix.decompose(dummy.position, dummy.rotation, dummy.scale);
 
@@ -87,8 +87,10 @@ function assemble_action_2(period) {
          _src_model_arr[j + 2],
       );
 
-      dummy.position.copy(pos_1.lerp(pos, t));
+      if (dummy.position.equals(pos_1)) continue;
 
+      const pos = obj[i];
+      dummy.position.copy(pos_1.lerp(pos, t * _tr));
       dummy.updateMatrix();
       instanced_mesh.setMatrixAt(i, dummy.matrix);
    };

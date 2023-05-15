@@ -25,19 +25,20 @@ function checkMeshesUnderCursor(ev) {
    const { active_scene } = workspace;
    coords.x = (pos[0] / window.innerWidth) * 2 - 1;
    coords.y = -(pos[1] / window.innerHeight) * 2 + 1;
-   for (let i = 0; i <= 5; i++) {
-      coords_1.x = coords.x + i * 0.01;
-      test(coords_1, camera, active_scene);
+   // test(coords, camera, active_scene);
+   // for (let i = 0; i <= 5; i++) {
+   //    coords_1.x = coords.x + i * 0.01;
+   //    test(coords_1, camera, active_scene);
 
-      coords_1.x = coords.x - i * 0.01;
-      test(coords_1, camera, active_scene);
+   //    coords_1.x = coords.x - i * 0.01;
+   //    test(coords_1, camera, active_scene);
 
-      coords_1.y = coords.y + i * 0.01;
-      test(coords_1, camera, active_scene);
+   //    coords_1.y = coords.y + i * 0.01;
+   //    test(coords_1, camera, active_scene);
 
-      coords_1.y = coords.y - i * 0.01;
-      test(coords_1, camera, active_scene);
-   };
+   //    coords_1.y = coords.y - i * 0.01;
+   //    test(coords_1, camera, active_scene);
+   // };
 };
 
 export default checkMeshesUnderCursor;
