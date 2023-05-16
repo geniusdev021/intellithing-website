@@ -23,7 +23,7 @@ const presets = {
    },
    [C_T_2]: {
       src_pos: new THREE.Vector2(-1400, 250),
-      int_pos: new THREE.Vector2(-200, -100),
+      int_pos: new THREE.Vector2(200, -100),
       end_pos: new THREE.Vector2(0, 0),
       color: new THREE.Color(0x4a17b0),
    },
@@ -81,7 +81,7 @@ function appear_2() {
 
 function translate_2() {
    x_2 += 0.014;
-   if (x_2 >= 1.62) INTELLITHING.workspace.delFromPool(2);
+   if (x_2 >= 1.6) INTELLITHING.workspace.delFromPool(2);
    t_2 = Math.sin(x_2);
    triangle_el_2.translate(t_2);
 };
