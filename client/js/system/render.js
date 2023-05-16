@@ -20,10 +20,11 @@ const render = {
 const _checkResize = () => { resize.check(); };
 
 function tick(time) {
+   const { workspace } = INTELLITHING;
    renderer.render(scene, camera.src);
    _rAF = requestAnimationFrame(tick, canvas);
-   // INTELLITHING.workspace.morphTriangles(time);
-   INTELLITHING.workspace.rotateTriangles(time);
+   workspace.rotateTriangles(time);
+   workspace.pool(time);
 };
 
 function start() {

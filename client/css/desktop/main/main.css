@@ -2,6 +2,7 @@
 @import url('./blocks/block-2.css');
 @import url('./blocks/block-3.css');
 @import url('./blocks/block-4.css');
+@import url('./blocks/block-5.css');
 
 #main-panel {
    position: fixed;

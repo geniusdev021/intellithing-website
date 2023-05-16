@@ -4,18 +4,18 @@ import { dummy, matrix } from "../dummy.js";
 const { getInstancedMesh } = target;
 
 let count_1, count_2, count_3, _src_model_arr;
-let obj = {};
+let obj = {}, src_clone_obj = {};
 let _tr;
 
 function disassemble_action_2(period, dir) {
    const instanced_mesh = getInstancedMesh();
    const t = period; // 0 - 1
-   count_1 = ~~(t * 232);
+   count_1 = ~~(t * 231);
    count_2 = ~~(t * 408);
    count_3 = ~~(t * 632);
    const spread = dir * 80;
    
-   if (count_1 > 232) count_1 = 232;
+   if (count_1 > 231) count_1 = 231;
    if (count_2 > 408) count_2 = 408;
    if (count_3 > 632) count_3 = 632;
 
@@ -68,6 +68,7 @@ function disassemble_action_2(period, dir) {
    };
 
    _tr = 1 / t; 
+   Object.assign(src_clone_obj, obj);
    instanced_mesh.instanceMatrix.needsUpdate = true;
 };
 
@@ -87,11 +88,17 @@ function assemble_action_2(period) {
          _src_model_arr[j + 2],
       );
 
-      if (dummy.position.equals(pos_1)) continue;
+      const ttr = t * _tr;
 
-      const pos = obj[i];
-      dummy.position.copy(pos_1.lerp(pos, t * _tr));
+      const 
+         pos = obj[i],
+         src_pos = src_clone_obj[i],
+         interm_lerp = pos.lerp(src_pos, ttr);
+
+      dummy.position.copy(pos_1.lerp(interm_lerp, ttr));
+
       dummy.updateMatrix();
+      obj[i] = dummy.position.clone();
       instanced_mesh.setMatrixAt(i, dummy.matrix);
    };
 

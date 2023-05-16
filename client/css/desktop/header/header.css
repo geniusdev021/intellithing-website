@@ -2,7 +2,6 @@
    position: absolute;
    width: 100vw;
    height: 130px;
-   /* background-color: white; */
 
    display: flex;
    justify-content: space-between;
@@ -11,9 +10,9 @@
 
 #logo {
    height: 100px;
-   /* width: 100px; */
    margin-left: 2rem;
    align-self: center;
+   margin-top: -0.3rem;
 }
 
 .header-nav {

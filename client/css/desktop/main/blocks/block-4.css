@@ -2,7 +2,7 @@
    position: relative;
    margin-top: 14rem;
    width: 100%;
-   height: 100%;
+   height: 90%;
    overflow: hidden;
 
    display: flex;
@@ -15,6 +15,7 @@
    padding: 1rem 1rem 1rem 9rem;
    font-size: 7rem;
    color: white;
+   z-index: 20;
 }
 
 #main-block-4 .t-7 {
@@ -23,6 +24,7 @@
    font-size: 2rem;
    font-weight: 700;
    color: rgb(221, 221, 221);
+   z-index: 20;
 }
 
 #main-block-4 .t-8 {
@@ -31,6 +33,7 @@
    font-size: 1.2rem;
    font-weight: 700;
    color: rgb(250, 250, 250);
+   z-index: 20;
 }
 
 #slider-container {
@@ -58,6 +61,7 @@
    border-radius: 2rem;
    transition: .28s opacity ease, transform .4s;
    filter: saturate(20%) blur(1px);
+   z-index: 15;
 }
 
 #slider-container img.active {
@@ -131,6 +135,6 @@
    position: absolute;
    color: rgb(221, 221, 221);
    font-size: 2.2rem;
-   top: 4%;
+   top: 5%;
    z-index: 20;
 }

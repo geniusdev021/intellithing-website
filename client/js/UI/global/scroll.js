@@ -2,6 +2,7 @@ import listener from '/js/lib/helpers/listener.js';
 import DOM from '/js/storage/dom.js';
 import math from '/js/lib/helpers/math.js';
 import instance from '/js/lib/instancing/instance.js';
+import triangle_meshes from '/js/lib/meshes/triangles.js';
 
 const {
    addEv,
@@ -13,6 +14,7 @@ const {
    main_block_2,
    main_block_3,
    main_block_4,
+   main_block_5,
 } = DOM;
 
 const scroll_ui = {
@@ -61,6 +63,8 @@ function action_2(period) {
    instance.disassemble_action_2(_period, dir);
 };
 
+let _block_5_bit_1 = false, _block_5_bit_2 = false, _block_5_bit_3 = false;
+
 function smoothScroll() {
    _src_offset = lerp(_src_offset, _dst_offset, model_continues_time);
    _src_offset_1 = round(lerp(_src_offset_1, _dst_offset, text_continues_time));
@@ -71,6 +75,7 @@ function smoothScroll() {
    main_block_2.style.transform = translte_style;
    main_block_3.style.transform = translte_style;
    main_block_4.style.transform = translte_style;
+   main_block_5.style.transform = translte_style;
 
    if (round(_src_offset) == _dst_offset) {
       cancelAnimationFrame(_rAF);
@@ -97,6 +102,21 @@ function smoothScroll() {
    };
 
    if (period >= 1.2 && period < 2.1) action_2(period);
+
+   if (period >= 3 && !_block_5_bit_1) {
+      _block_5_bit_1 = true;
+      triangle_meshes.appear_1();
+   };
+
+   if (period >= 3.05 && !_block_5_bit_2) {
+      _block_5_bit_2 = true;
+      triangle_meshes.appear_2();
+   };
+
+   if (period >= 3.1 && !_block_5_bit_3) {
+      _block_5_bit_3 = true;
+      triangle_meshes.appear_3();
+   };
 
    _last_period = period;
    _rAF = requestAnimationFrame(smoothScroll);

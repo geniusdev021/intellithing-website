@@ -3,9 +3,9 @@ import { dummy, matrix } from "../dummy.js";
 
 const { getInstancedMesh } = target;
 
-const MESHES_COUNT = 400;
+const MESHES_COUNT = 399;
 let count, _src_model_arr;
-let obj = {};
+let obj = {}, src_clone_obj = {};
 let _tr;
 
 function disassemble_action_1(period, dir) {
@@ -25,13 +25,12 @@ function disassemble_action_1(period, dir) {
       dummy.position.z += Math.cos(i) * spread * 2;
 
       dummy.updateMatrix();
-
       obj[i] = dummy.position.clone();
-
       instanced_mesh.setMatrixAt(i, dummy.matrix);
    };
 
    _tr = 1 / _t;
+   Object.assign(src_clone_obj, obj);
    instanced_mesh.instanceMatrix.needsUpdate = true;
 };
 
@@ -52,12 +51,17 @@ function assemble_action_1(period) {
          _src_model_arr[j + 2],
       );
 
-      if (dummy.position.equals(pos_1)) continue;
+      const ttr = t * _tr;
 
-      const pos = obj[i];
-      dummy.position.copy(pos_1.lerp(pos, t * _tr));
+      const 
+         pos = obj[i],
+         src_pos = src_clone_obj[i],
+         interm_lerp = pos.lerp(src_pos, ttr);
+
+      dummy.position.copy(pos_1.lerp(interm_lerp, ttr));
 
       dummy.updateMatrix();
+      obj[i] = dummy.position.clone();
       instanced_mesh.setMatrixAt(i, dummy.matrix);
    };
 
