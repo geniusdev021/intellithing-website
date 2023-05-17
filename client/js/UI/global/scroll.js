@@ -15,6 +15,7 @@ const {
    main_block_3,
    main_block_4,
    main_block_5,
+   main_block_6,
 } = DOM;
 
 const scroll_ui = {
@@ -22,7 +23,7 @@ const scroll_ui = {
 };
 
 const
-   model_continues_time = 0.04,
+   scene_continues_time = 0.04,
    text_continues_time = 0.03;
 
 const
@@ -52,7 +53,6 @@ function action_1(period) {
 
 function action_2(period) {
    const dir = period - _last_period;
-   // const _period = Math.sin((period - P_OFFSET_ACTION_2) * 2);
    const _period = (period - P_OFFSET_ACTION_2) * 1.25;
    if (dir < 0) {
       instance.assemble_action_2(_period);
@@ -66,7 +66,7 @@ function action_2(period) {
 let _block_5_bit_1 = false, _block_5_bit_2 = false, _block_5_bit_3 = false;
 
 function smoothScroll() {
-   _src_offset = lerp(_src_offset, _dst_offset, model_continues_time);
+   _src_offset = lerp(_src_offset, _dst_offset, scene_continues_time);
    _src_offset_1 = round(lerp(_src_offset_1, _dst_offset, text_continues_time));
 
    const translte_style = "translateY(-" + ~~(_src_offset_1 * 0.3) + "px)";
@@ -76,6 +76,7 @@ function smoothScroll() {
    main_block_3.style.transform = translte_style;
    main_block_4.style.transform = translte_style;
    main_block_5.style.transform = translte_style;
+   main_block_6.style.transform = translte_style;
 
    if (round(_src_offset) == _dst_offset) {
       cancelAnimationFrame(_rAF);

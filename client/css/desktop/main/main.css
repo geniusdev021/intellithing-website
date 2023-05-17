@@ -3,12 +3,12 @@
 @import url('./blocks/block-3.css');
 @import url('./blocks/block-4.css');
 @import url('./blocks/block-5.css');
+@import url('./blocks/block-6.css');
 
 #main-panel {
    position: fixed;
    width: 100vw;
    height: 100vh;
-   bottom: 0;
    overflow-y: auto;
    /* pointer-events: none; */
 }

@@ -9,6 +9,7 @@ const {
 const {
    addClass,
    rmClass,
+   insertAdjacent,
 } = HTMLNode;
 
 const {
@@ -22,10 +23,17 @@ const slider_ui = {
    register,
 };
 
-let _pointer = 3;
+let _pointer = 5;
 
 function _to_left_handler() {
-   if (_pointer == 0) return;
+   if (_pointer == 0) {
+      rmClass(slider_container, `active-${_pointer}`);
+      rmClass(img_slider[_pointer]);
+      _pointer = 9;
+      addClass(slider_container, `active-${_pointer}`);
+      addClass(img_slider[_pointer]);
+      return;
+   };
    rmClass(slider_container, `active-${_pointer}`);
    rmClass(img_slider[_pointer]);
    _pointer -= 1;
@@ -34,7 +42,14 @@ function _to_left_handler() {
 };
 
 function _to_right_handler() {
-   if (_pointer == 7) return;
+   if (_pointer == 9) {
+      rmClass(slider_container, `active-${_pointer}`);
+      rmClass(img_slider[_pointer]);
+      _pointer = 0;
+      addClass(slider_container, `active-${_pointer}`);
+      addClass(img_slider[_pointer]);
+      return;
+   };
    rmClass(slider_container, `active-${_pointer}`);
    rmClass(img_slider[_pointer]);
    _pointer += 1;
