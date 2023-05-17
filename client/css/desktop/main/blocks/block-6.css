@@ -15,9 +15,12 @@
    color: rgb(221, 221, 221);
 }
 
-#request-btn {
+#main-block-6 #request-btn {
    margin-top: 2rem;
-   padding: 1rem 1.2rem;
+}
+
+#request-btn {
+   padding: 0.8rem 1.3rem;
    display: flex;
    justify-content: center;
    align-items: center;
