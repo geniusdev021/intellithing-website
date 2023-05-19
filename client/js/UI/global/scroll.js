@@ -10,12 +10,6 @@ const {
 
 const {
    main_panel,
-   main_block_1,
-   main_block_2,
-   main_block_3,
-   main_block_4,
-   main_block_5,
-   main_block_6,
 } = DOM;
 
 const scroll_ui = {
@@ -32,12 +26,11 @@ const
 
 let _dst_offset = 0;
 let _src_offset = 0, _src_offset_1 = 0, _rAF;
+let _last_period = 0;
 
 const
    { lerp } = math,
    { round } = Math;
-
-let _last_period = 0;
 
 function action_1(period) {
    const dir = period - _last_period;
@@ -67,22 +60,16 @@ let _block_5_bit_1 = false, _block_5_bit_2 = false, _block_5_bit_3 = false;
 
 function smoothScroll() {
    _src_offset = lerp(_src_offset, _dst_offset, scene_continues_time);
-   _src_offset_1 = round(lerp(_src_offset_1, _dst_offset, text_continues_time));
-
-   const translte_style = "translateY(-" + ~~(_src_offset_1 * 0.3) + "px)";
-
-   main_block_1.style.transform = translte_style;
-   main_block_2.style.transform = translte_style;
-   main_block_3.style.transform = translte_style;
-   main_block_4.style.transform = translte_style;
-   main_block_5.style.transform = translte_style;
-   main_block_6.style.transform = translte_style;
+   // _src_offset_1 = round(lerp(_src_offset_1, _dst_offset, text_continues_time));
 
    if (round(_src_offset) == _dst_offset) {
       cancelAnimationFrame(_rAF);
       _rAF = null;
       return;
    };
+
+   const translate_style = `translateY(${-_src_offset}px) translateZ(0)`;
+   main_panel.style.transform = translate_style;
 
    const
       period = _src_offset / window.innerHeight,
@@ -104,17 +91,17 @@ function smoothScroll() {
 
    if (period >= 1.2 && period < 2.1) action_2(period);
 
-   if (period >= 3 && !_block_5_bit_1) {
+   if (period >= 3.75 && !_block_5_bit_1) {
       _block_5_bit_1 = true;
       triangle_meshes.appear_1();
    };
 
-   if (period >= 3.05 && !_block_5_bit_2) {
+   if (period >= 3.8 && !_block_5_bit_2) {
       _block_5_bit_2 = true;
       triangle_meshes.appear_2();
    };
 
-   if (period >= 3.1 && !_block_5_bit_3) {
+   if (period >= 3.85 && !_block_5_bit_3) {
       _block_5_bit_3 = true;
       triangle_meshes.appear_3();
    };
@@ -124,13 +111,15 @@ function smoothScroll() {
 };
 
 function _scrollHandler() {
-   const { scrollTop, scrollHeight, offsetHeight } = main_panel;
+   const { scrollTop } = document.documentElement;
    _dst_offset = scrollTop;
    if (!_rAF) smoothScroll();
 };
 
 function register() {
-   addEv(main_panel, 'scroll', _scrollHandler);
+   const height = main_panel.getBoundingClientRect().height - 1;
+   root.style.height = Math.floor(height) + 'px'; 
+   addEv(document, 'scroll', _scrollHandler);
 };
 
 export default scroll_ui;

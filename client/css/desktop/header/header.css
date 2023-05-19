@@ -1,3 +1,10 @@
+.header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 100;
+}
+
 .header-content-wrapper {
    position: absolute;
    width: 100vw;
@@ -5,7 +12,6 @@
 
    display: flex;
    justify-content: space-between;
-   z-index: 100;
 }
 
 #logo {
